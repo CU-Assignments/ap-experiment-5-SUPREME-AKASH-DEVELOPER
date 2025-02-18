@@ -1,0 +1,25 @@
+### Aim:
+To find the least number of perfect square numbers that sum up to a given integer n.
+
+### Objective:
+Implement a dynamic programming solution to compute the minimum number of perfect squares needed to sum up to n. 
+The approach should efficiently handle large values of **n** (up to 10,000) and return the result with optimal time complexity.
+
+### Code:
+class Solution {
+public:
+    int numSquares(int n) {
+        if (n <= 0) {
+            return 0;
+        }
+        // AKASH 22BET10018
+        vector<int> cntPerfectSquares(n + 1, INT_MAX);
+        cntPerfectSquares[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j*j <= i; j++) {
+                cntPerfectSquares[i] = min(cntPerfectSquares[i], cntPerfectSquares[i - j*j] + 1);
+            }
+        }
+        return cntPerfectSquares.back();
+    }
+};
