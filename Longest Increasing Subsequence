@@ -1,0 +1,48 @@
+### Aim: 
+To develop an efficient algorithm to find the length of the longest strictly increasing subsequence in a given integer array.
+
+### Objective: 
+1. Implement a solution to determine the longest increasing subsequence (LIS) in an array.  
+2. Optimize the solution using dynamic programming (O(n²)) and binary search (O(n log n)) approaches.  
+3. Handle constraints efficiently, ensuring the solution works for 1 ≤ nums.length ≤ 2500 and -10⁴ ≤ nums[i] ≤ 10⁴.  
+4. Compare different algorithmic approaches in terms of time and space complexity.  
+5. Test the solution with various cases, including sorted, reverse sorted, and duplicate elements.  
+
+### Code:
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+    // AKASH_22BET10018
+        vector<int> res;
+
+        for (int n : nums) {
+            if (res.empty() || res.back() < n) {
+                res.push_back(n);
+            } else {
+                int idx = binarySearch(res, n);
+                res[idx] = n;
+            }
+        }
+
+        return res.size();        
+    }
+
+private:
+    int binarySearch(const vector<int>& arr, int target) {
+        int left = 0;
+        int right = arr.size() - 1;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (arr[mid] == target) {
+                return mid;
+            } else if (arr[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return left;
+    }    
+};
