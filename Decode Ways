@@ -1,0 +1,35 @@
+### Aim: 
+To determine the number of valid ways to decode a string of digits into alphabetic characters based on the mapping from "1" to 'A', "2" to 'B', ..., "26" to 'Z'.
+
+### Objective:
+Implement a dynamic programming solution to count all possible ways to decode the string while handling edge cases such as leading zeros and invalid digit sequences. The algorithm should run efficiently in O(n) time.
+
+### Code:
+class Solution {
+public:
+    int numDecodings(std::string s) {
+        if (s.empty() || s[0] == '0') {
+            return 0;
+        }
+        // AKASH_22BET10018
+        int n = s.length();
+        std::vector<int> dp(n + 1, 0);
+        dp[0] = 1;
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; ++i) {
+            int oneDigit = s[i - 1] - '0';
+            int twoDigits = std::stoi(s.substr(i - 2, 2));
+
+            if (oneDigit != 0) {
+                dp[i] += dp[i - 1];
+            }
+
+            if (10 <= twoDigits && twoDigits <= 26) {
+                dp[i] += dp[i - 2];
+            }
+        }
+
+        return dp[n];
+    }
+};
