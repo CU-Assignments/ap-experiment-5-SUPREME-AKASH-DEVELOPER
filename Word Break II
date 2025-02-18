@@ -1,0 +1,37 @@
+### Aim:
+To generate all possible sentences by adding spaces in the string s such that each word in the sentence is a valid word from the given dictionary wordDict.
+
+### Objective:
+Implement a solution to find all possible ways to break the string s into words from wordDict and return all valid sentences formed by these words. 
+The solution should efficiently handle cases where words in the dictionary can be reused.
+
+### Code:
+class Solution {
+public:
+    void solve(string s, vector<string>& res, unordered_set<string>& st, vector<string>&temp){
+        // AKASH 22BET10018
+        if(s.length() == 0){
+            string str = "";
+            for(auto it:temp){
+                str += it + " ";
+            }
+            str.pop_back();
+            res.push_back(str);
+            return;
+        }
+        for(int i=0;i<s.length(); i++){
+            if(st.count(s.substr(0, i+1))){
+                temp.push_back(s.substr(0, i+1));
+                solve(s.substr(i+1), res, st, temp);
+                temp.pop_back();
+            }
+        }
+    }
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        vector<string>res, temp;
+        unordered_set<string>st(wordDict.begin(), wordDict.end());
+        
+        solve(s, res, st, temp);
+        return res;
+    }
+};
