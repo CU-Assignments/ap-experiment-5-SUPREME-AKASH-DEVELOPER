@@ -42,5 +42,3 @@ Each problem is implemented using **C++**, utilizing techniques like **Merge Sor
 ## 📜 License
 
 This project is licensed under the **MIT License**.
-```
-
